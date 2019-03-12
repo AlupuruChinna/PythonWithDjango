@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Welcome to SmartProducts</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <link href=" {% static 'open-iconic-master/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+
+    <nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href=" {% url 'home' %}">
+          <img src="{% static 'logo.png' %}" alt="Image" height="30" width="80" class="inline_label">
+      </a>
+        <a class="navbar-brand" href="{% url 'home' %}">Smart Products</a>
+    </div>
+
+      <ul class="nav navbar-nav">
+
+                {% if user.is_authenticated %}
+                    <li><a href="javascript:{document.getElementById('logout').submit()}" onclick="">Logout</a></li>
+                    <li><a href="{% url 'create' %}" class="button btn" ><span class="oi oi-plus"></span></a></li>
+                    <form id="logout" method="post" action="{% url 'home' %}">
+                        {% csrf_token %}
+                            <input type="hidden" />
+
+                {% else %}
+                    <li><a href="{% url 'signup' %}" class="button btn" >SignUp</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+
+                    </form>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <center><h3>Welcome to Product Page</h3></center>
+</div>
+
+    <div class="select2-container">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+
+    <br>
+<div class="container">
+    <br />
+    <center><strong><p>Choose for your Best</p></strong></center>
+
+    <center>Note: This page helps you about product and review. See description and choose best product for you. Thankyou - Smart</center>
+</div>
+
+
+</html>

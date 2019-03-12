@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    <h3> <center> This is Main Home Page</center></h3>
+
+    {% block content %}
+
+    {% for product in products.all %}
+         <div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped" style="grid-auto-columns: max-content">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product icon </th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Image</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-center">Uploded By</th>
+                            <th scope="col" class="text-right">For Vote</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="{% url 'details' product.id %}"><img src="{{ product.icons.url }}" width="70" height="70" /></a> </td>
+                            <td><h3> <a href=" {{ product.url }}">{{ product.title}} </a></h3></td>
+                            <td><img src=" {{ product.image.url }}" height="200" width="250"></td>
+                            <td><strong><p class="text-justify"> {{ product.summery }} </p> </strong></td>
+                            <td><h4> {{ product.hunter.username }}</h4> {{ product.pub_date_pretty}}</td>
+                            <td> <a href="javascript: {document.getElementById('upvote {{ product.id }}').submit()}" onclick=""><button class="btn btn-block btn-success text-uppercase"> <span class="oi oi-caret-top"> upvote {{ product.votes }}</span></button></a></td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+   <form id='upvote {{ product.id }}' method="POST" action=" {% url 'upvote' product.id %}">
+            {% csrf_token %}
+                <input type="hidden" />
+   </form>
+{% endfor %}
+    {% endblock %}
+
+
+</body>
+</html>

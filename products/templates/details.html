@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products Home Page</title>
+    <script type="application/javascript"></script>
+</head>
+<body>
+
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+        <form id='upvote' method="POST" action=" {% url 'upvote' product.id %}">
+            {% csrf_token %}
+                <input type="hidden" />
+
+
+        <div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped" style="grid-auto-columns: max-content">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product icon </th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Image</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-center">Uploded By</th>
+                            <th scope="col" class="text-right">For Vote</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="{{ product.icons.url }}" width="70" height="70" /> </td>
+                            <td><h3> <a href=" {{ product.url }}">{{ product.title}} </a></h3></td>
+                            <td><img src=" {{ product.image.url }}" height="200" width="250"></td>
+                            <td><strong><p class="text-justify"> {{ product.body }} </p> </strong></td>
+                            <td><h4> {{ product.hunter.username }}</h4> {{ product.pub_date }}</td>
+                            <td> <a href="javascript: {document.getElementById('voteup').submit()}" onclick=""><button class="btn btn-block btn-success text-uppercase"> <span class="oi oi-caret-top"> upvote {{ product.votes }}</span></button></a></td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</form>
+    {% endblock %}
+
+</body>
+</html>
